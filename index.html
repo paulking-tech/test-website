@@ -20,7 +20,8 @@
             headers: {
                 accept: 'application/json',
                 Authorization: `Bearer ${token}`
-            }
+            },
+            mode: 'no-cors'
         };
 
         fetch('https://app.officernd.com/api/v1/organizations/hubsandbox/user/profile', options)
