@@ -4,7 +4,7 @@
     <title>Token Parameter</title>
 </head>
 <body>
-    <h1>Token Parameter Value: <span id="token-value"></span></h1>
+    <div id="response-container"></div>
 
     <script>
         // Function to retrieve the value of a parameter from the URL
@@ -15,9 +15,23 @@
 
         // Get the value of the "token" parameter from the URL
         var token = getParameterValue("token");
+        var options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        };
 
-        // Update the HTML with the token value
-        document.getElementById("token-value").textContent = token;
+        fetch('https://app.officernd.com/api/v1/organizations/hubsandbox/user/profile', options)
+            .then(response => response.json())
+            .then(response => {
+                var responseContainer = document.getElementById('response-container');
+                responseContainer.textContent = JSON.stringify(response);
+            })
+            .catch(err => console.error(err));
     </script>
 </body>
 </html>
+
+
