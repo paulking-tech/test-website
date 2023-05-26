@@ -25,9 +25,10 @@
         };
         
         fetch('https://app.officernd.com/api/v1/organizations/hubsandbox/user/profile', options)
+            .then(response => response.json())
             .then(response => {
                 const responseContainer = document.getElementById('response-container');
-                responseContainer.textContent = 'Request sent. Response is not accessible due to CORS restrictions.';
+                responseContainer.textContent = JSON.stringify(response);
             })
             .catch(err => console.error(err));
     </script>
