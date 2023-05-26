@@ -1,59 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Request Headers</title>
+    <title>Token Parameter</title>
 </head>
 <body>
-    <h1>Request Headers</h1>
-    <table id="headers-table">
-        <tr>
-            <th>Header</th>
-            <th>Value</th>
-        </tr>
-    </table>
+    <h1>Token Parameter Value: <span id="token-value"></span></h1>
 
     <script>
-        // Create a new XMLHttpRequest object
-        var xhr = new XMLHttpRequest();
+        // Function to retrieve the value of a parameter from the URL
+        function getParameterValue(parameter) {
+            var urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(parameter);
+        }
 
-        // Open a GET request to the current page (you can replace with any desired URL)
-        xhr.open('GET', window.location.href, true);
+        // Get the value of the "token" parameter from the URL
+        var token = getParameterValue("token");
 
-        // Set up an event handler for when the request completes
-        xhr.onload = function() {
-            if (xhr.status >= 200 && xhr.status < 400) {
-                // Retrieve the response headers
-                var headers = xhr.getAllResponseHeaders();
-
-                // Split the headers into individual lines
-                var headerLines = headers.trim().split('\n');
-
-                // Get the table element to display the headers
-                var table = document.getElementById('headers-table');
-
-                // Iterate through the headers and populate the table
-                for (var i = 0; i < headerLines.length; i++) {
-                    var line = headerLines[i];
-                    var separatorIndex = line.indexOf(':');
-                    var header = line.substring(0, separatorIndex);
-                    var value = line.substring(separatorIndex + 1).trim();
-
-                    var row = document.createElement('tr');
-                    var headerCell = document.createElement('td');
-                    var valueCell = document.createElement('td');
-
-                    headerCell.textContent = header;
-                    valueCell.textContent = value;
-
-                    row.appendChild(headerCell);
-                    row.appendChild(valueCell);
-                    table.appendChild(row);
-                }
-            }
-        };
-
-        // Send the request
-        xhr.send();
+        // Update the HTML with the token value
+        document.getElementById("token-value").textContent = token;
     </script>
 </body>
 </html>
