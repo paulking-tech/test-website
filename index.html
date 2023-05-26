@@ -20,8 +20,7 @@
             headers: {
                 accept: 'application/json',
                 Authorization: `Bearer ${token}`
-            },
-            mode: 'no-cors'
+            }
         };
         
         fetch('https://app.officernd.com/api/v1/organizations/hubsandbox/user/profile', options)
@@ -30,9 +29,10 @@
                 const responseContainer = document.getElementById('response-container');
                 responseContainer.textContent = JSON.stringify(response);
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                const responseContainer = document.getElementById('response-container');
+                responseContainer.textContent = 'Error: ' + err;
+            });
     </script>
 </body>
 </html>
-
-
